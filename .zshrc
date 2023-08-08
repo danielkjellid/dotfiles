@@ -25,6 +25,9 @@ KUBE_PS1_ENABLED=true
 
 export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
 export PATH="/Users/danielkjellid/.local/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 eval "$(pyenv init -)"
 eval "$(direnv hook zsh)"
@@ -33,7 +36,8 @@ eval "$(starship init zsh)"
 
 # Aliases
 alias k="kubectl"
-alias mat='echo "\e[0;31mNY28:\033[0m" && curl -s https://portal.ny28.no/wp-content/uploads/meny28.pdf | pdftotext - - && echo "\e[0;31mNY24:\033[0m" && curl -s https://www.ny24.no/api/fetch/$(date "+%u") | jq'
 alias pym='poetry run python manage.py'
 alias pr='poetry run'
 alias config='/usr/bin/git --git-dir=/Users/danielkjellid/.cfg/ --work-tree=/Users/danielkjellid'
+alias velo="~/code/velo/.venv/bin/python -m velo.cli.main"
+
