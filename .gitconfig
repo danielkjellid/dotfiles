@@ -1,13 +1,15 @@
 [core]
 	pager = delta
+	autocrlf = input
 
 [user]
-	email = daniel.kjellid@gmail.com
+	email = 42611331+danielkjellid@users.noreply.github.com
 	name = Daniel Kjellid
 	signingKey = /Users/danielkjellid/.ssh/git-signing-key.pub
 
 [init]
 	defaultBranch = main
+	templateDir = ~/.git-templates
 
 [delta]
 	features = side-by-side line-numbers decorations
@@ -16,3 +18,8 @@
 	format = ssh
 [commit]
 	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
