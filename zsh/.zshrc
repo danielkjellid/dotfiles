@@ -38,6 +38,7 @@ alias gp="git push"
 alias um="uv run python manage.py"
 alias ur="uv run"
 alias vim="nvim"
+alias reload="source ~/.config/zsh/.zshrc"
 
 # Custom commands
 tienda-start() { mprocs -c "$1.yaml" }
