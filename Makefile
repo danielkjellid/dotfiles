@@ -1,0 +1,21 @@
+
+# Nvim
+# ln -v -F -s ~/dotfiles/nvim ~/.config/nvim
+#
+# Tmux
+# ln -v -F -s ~/dotfiles/tmux ~/.config/tmux
+#
+# kitty
+# ln -v -F -s ~/dotfiles/kitty ~/.config/kitty
+#
+# .zshenv
+# ln -v -F -s ~/dotfiles/.zshenv ~/.zshenv
+#
+# zsh
+# ln -v -F -s ~/dotfiles/zsh ~/.config/zsh
+#
+# starship
+# ln -v -F -s ~/dotfiles/starship ~/.config/starship
+#
+# oh-my-zsh
+# https://github.com/ohmyzsh/ohmyzsh
