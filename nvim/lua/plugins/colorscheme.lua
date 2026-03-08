@@ -43,17 +43,12 @@ return {
 				local diff_pink = colors.diff_pink
 
 				return {
-					-- Editor colors
-					Normal = { fg = white },
-					NormalFloat = { fg = white },
-					FloatBorder = { fg = dark_bg },
-
 					-- Cursor and selection
 					Cursor = { fg = cursor_blue },
 
 					-- Line numbers
 					LineNr = { fg = dark_gray },
-					CursorLineNr = { fg = white },
+					CursorLineNr = { fg = orange, bold = true },
 
 					-- Diagnostics
 					DiagnosticError = { fg = red },
@@ -66,6 +61,13 @@ return {
 					GitSignsChange = { fg = git_blue },
 					GitSignsDelete = { fg = git_red },
 
+					-- Snacks picker git status (link to GitSigns instead of Diagnostics)
+					SnacksPickerGitStatusAdded = { link = "GitSignsAdd" },
+					SnacksPickerGitStatusModified = { link = "GitSignsChange" },
+					SnacksPickerGitStatusDeleted = { link = "GitSignsDelete" },
+					SnacksPickerGitStatusStaged = { link = "GitSignsAdd" },
+					SnacksPickerGitStatusUnmerged = { link = "GitSignsDelete" },
+
 					-- Status line
 					StatusLine = { fg = light_gray },
 					StatusLineNC = { fg = medium_gray },
@@ -73,46 +75,6 @@ return {
 					-- Tab line
 					TabLine = { fg = medium_gray },
 					TabLineSel = { fg = white },
-
-					-- SnacksPickerListCursorLine = { bg = cursor_blue },
-
-					-- Syntax highlighting
-					Comment = { fg = comment_gray, italic = true },
-					Constant = { fg = blue },
-					String = { fg = light_blue },
-					Character = { fg = light_blue },
-					Number = { fg = blue },
-					Boolean = { fg = blue },
-					Float = { fg = blue },
-
-					Identifier = { fg = white },
-					Function = { fg = purple },
-
-					Statement = { fg = red },
-					Conditional = { fg = red },
-					Repeat = { fg = red },
-					Label = { fg = red },
-					Operator = { fg = white },
-					Keyword = { fg = red },
-					Exception = { fg = red },
-
-					PreProc = { fg = purple },
-					Include = { fg = red },
-					Define = { fg = red },
-					Macro = { fg = purple },
-					PreCondit = { fg = purple },
-
-					Type = { fg = purple }, -- Custom classes (same as functions)
-					StorageClass = { fg = red },
-					Structure = { fg = purple }, -- Custom structures
-					Typedef = { fg = purple }, -- Custom type definitions
-
-					Special = { fg = blue },
-					SpecialChar = { fg = green, bold = true },
-					Tag = { fg = green },
-					Delimiter = { fg = light_gray },
-					SpecialComment = { fg = comment_gray },
-					Debug = { fg = red },
 
 					Underlined = { underline = true },
 					Bold = { bold = true },
@@ -126,10 +88,6 @@ return {
 					DiffAdd = { fg = green },
 					DiffChange = { fg = orange },
 					DiffDelete = { fg = diff_pink },
-
-					-- Fold
-					Folded = { fg = medium_gray },
-					FoldColumn = { fg = dark_gray },
 
 					-- Pmenu (completion menu)
 					Pmenu = { fg = white },
@@ -151,106 +109,53 @@ return {
 					-- Terminal
 					Terminal = { fg = light_gray },
 
+					Normal = { fg = white },
+					NormalFloat = { fg = white },
+					FloatBorder = { fg = dark_bg },
+
+					Constant = { fg = blue },
+					Type = { fg = darker_blue }, -- class, enum, interface, type, str, etc.
+					Operator = { fg = red },
+					Variable = { fg = white },
+					Include = { fg = red }, -- import, from
+					String = { fg = light_blue },
+					Function = { fg = purple },
+					Keyword = { fg = red },
+					Number = { fg = blue },
+					Float = { fg = blue },
+					Boolean = { fg = blue },
+					Repeat = { fg = red }, -- while, for
+					Conditional = { fg = red }, -- if, elif, else
+					Exception = { fg = red }, -- try, except, finally
+					Special = { fg = blue }, -- _, :, etc.
+
 					-- Treesitter
-					["@comment"] = { fg = comment_gray, italic = true },
-					["@constant"] = { fg = blue },
-					["@constant.builtin"] = { fg = blue },
-					["@constant.macro"] = { fg = light_blue }, -- Enum members (same as variables)
-					["@lsp.type.enumMember"] = { fg = light_blue }, -- Enum members (same as variables)
-					["@lsp.typemod.member"] = { fg = light_blue }, -- Enum/class members (same as variables)
-					["@string"] = { fg = light_blue },
-					["@string.regexp"] = { fg = very_light_blue },
-					["@string.special"] = { fg = light_blue }, -- Docstrings
-					["@string.documentation"] = { fg = light_blue }, -- Docstrings
-					["@text.literal"] = { fg = light_blue }, -- Docstrings/literal text
-					["@function"] = { fg = purple },
-					["@function.builtin"] = { fg = purple },
-					["@function.method"] = { fg = purple }, -- Class methods (same as functions)
-					["@function.call"] = { fg = purple }, -- Function calls
-					["@method"] = { fg = purple }, -- Methods
-					["@method.call"] = { fg = purple }, -- Method calls
-					["@constructor"] = { fg = darker_blue }, -- Type constructors (int(), str(), etc.)
-					["@keyword"] = { fg = red },
-					["@keyword.function"] = { fg = red }, -- def keyword
-					["@keyword.operator"] = { fg = red }, -- in, not, is, etc.
-					["@keyword.export"] = { fg = red }, -- export keyword
-					["@keyword.return"] = { fg = red }, -- return keyword
-					["@operator"] = { fg = white },
-					["@variable"] = { fg = white },
-					["@variable.builtin"] = { fg = white },
-					["@variable.member"] = { fg = white }, -- Object/class members (same as variables)
-					["@parameter"] = { fg = orange },
-					["@parameter.reference"] = { fg = orange },
+					["@type.builtin"] = { link = "@type" },
 					["@variable.parameter"] = { fg = orange },
-					["@type"] = { fg = darker_blue }, -- Type annotations (builtin types)
-					["@namespace"] = { fg = purple }, -- Module imports (same as functions)
-					["@type.builtin"] = { fg = darker_blue }, -- Builtin types (darker blue) - must come after function groups
+					["@variable.builtin"] = { fg = orange },
+					["@variable.member"] = { link = "@variable" },
+					["@keyword.function"] = { link = "@keyword" },
+					["@keyword.return"] = { link = "@keyword" },
+					["@keyword.operator"] = { link = "@keyword" },
+					["@string.documentation"] = { link = "@string" },
+					["@constant.builtin"] = { link = "@constant" },
+					["@function.builtin"] = { link = "@type" },
+					["@punctuation"] = { link = "@normal" },
+					["@punctuation.bracket"] = { link = "@normal" },
+					["@punctuation.delimiter"] = { link = "@normal" },
+					["@punctuation.special"] = { link = "@normal" },
+					["@punctuation.special"] = { link = "@normal" },
 
-					-- LSP semantic tokens: Link to treesitter groups to retain original colors
-					-- This ensures LSP tokens enhance rather than override treesitter highlighting
-					-- Function-related tokens must link to @function (not @variable)
-					-- ["@lsp.type.function"] = { link = "@function" }, -- Functions -> function color (purple)
-					-- ["@lsp.typemod.function"] = { link = "@function" }, -- Function modifiers -> function color
-					-- ["@lsp.typemod.function.declaration"] = { link = "@function" }, -- Function declarations -> function color
-					-- ["@lsp.typemod.function.local"] = { link = "@function" }, -- Local functions -> function color
-					-- ["@lsp.typemod.function.readonly"] = { link = "@function" }, -- Readonly functions -> function color
-					-- ["@lsp.typemod.function.member"] = { link = "@function" }, -- Function members -> function color (purple)
-					-- ["@lsp.type.method"] = { link = "@method" }, -- Methods -> method color (purple)
-					-- ["@lsp.type.class"] = { link = "@type" }, -- Classes -> type color
-					-- ["@lsp.typemod.class.builtin"] = { link = "@type.builtin" }, -- Builtin classes -> builtin type color
-					-- ["@lsp.typemod.class.defaultLibrary"] = { link = "@type.builtin" }, -- Default library classes -> builtin type color
-					-- ["@lsp.mod.builtin"] = { link = "@namespace" }, -- Builtin modules -> namespace color
-					-- ["@lsp.mod.defaultLibrary"] = { link = "@namespace" }, -- Default library modules -> namespace color
-					-- -- Keep specific modifiers that don't conflict
-					-- ["@lsp.mod.local"] = { link = "@variable" }, -- Local variables -> variable color
-					-- ["@lsp.mod.readonly"] = { link = "@variable" }, -- Readonly variables -> variable color
-					-- ["@lsp.type.variable"] = { link = "@variable" }, -- Variables -> variable color
-					-- ["@lsp.type.constant"] = { link = "@constant" }, -- Constants -> constant color
-					-- ["@lsp.type.property"] = { link = "@variable.member" }, -- Properties -> variable.member
-					-- ["@lsp.type.enum"] = { link = "@type" }, -- Enums -> type color
-					-- ["@lsp.type.enumMember"] = { link = "@constant" }, -- Enum members -> constant color
-					-- ["@lsp.type.parameter"] = { link = "@parameter" }, -- Parameters -> parameter color
-					-- -- Language-specific parameter semantic tokens (higher priority, must override)
-					-- ["@lsp.type.parameter.python"] = { link = "@parameter" }, -- Python parameters -> orange
-					-- ["@lsp.mod.parameter.python"] = { link = "@parameter" }, -- Python parameter modifiers -> orange
-					-- ["@lsp.typemod.parameter.parameter.python"] = { link = "@parameter" }, -- Python parameter type modifiers -> orange
-					-- -- Override declaration modifiers specifically for Python parameters (must come after generic ones)
-					-- ["@lsp.typemod.parameter.declaration.python"] = { link = "@parameter" }, -- Python parameter declarations -> orange (overrides @variable)
-					-- ["@lsp.type.type"] = { link = "@type" }, -- Types -> type color
-					-- ["@lsp.type.namespace"] = { link = "@namespace" }, -- Namespaces -> namespace color
-					-- ["@lsp"] = { link = "@variable" }, -- Fallback: generic LSP -> variable color
-					["@module"] = { fg = purple }, -- Module imports (same as functions)
-					["@tag"] = { fg = green },
-					["@tag.builtin"] = { fg = green }, -- Built-in HTML tags
-					["@punctuation"] = { fg = light_gray },
-					["@punctuation.bracket"] = { fg = light_gray },
-					["@punctuation.delimiter"] = { fg = light_gray },
-					["@error"] = { fg = red },
-					["@warning"] = { fg = yellow },
-					["@text.emphasis"] = { italic = true },
-					["@text.strong"] = { bold = true },
-					["@text.underline"] = { underline = true },
-					["@text.strike"] = { strikethrough = true },
+					-- Treesitter: Python
+					["@constructor.python"] = { link = "@fucntion" },
 
-					-- JSX/TSX: Make component names purple (like @function) since they are functions
-					-- This ensures consistent purple coloring for JSX elements
-					["@tag.tsx"] = { link = "@function" }, -- JSX component names -> purple (functions)
-					["@tag.jsx"] = { link = "@function" },
-					["@tag.javascriptreact"] = { link = "@function" },
-					["@tag.typescriptreact"] = { link = "@function" },
-					["@_jsx_element.tsx"] = { link = "@function" }, -- JSX element nodes -> purple
-					-- JSX props/attributes: Color like function arguments (orange)
-					["@tag.attribute.tsx"] = { link = "@parameter" }, -- JSX attributes -> orange (like function args)
-					["@tag.attribute.jsx"] = { link = "@parameter" },
-					["@tag.attribute.javascriptreact"] = { link = "@parameter" },
-					["@tag.attribute.typescriptreact"] = { link = "@parameter" },
-					["@_jsx_attribute.tsx"] = { link = "@parameter" }, -- JSX attribute nodes -> orange
-					["@variable.member.tsx"] = { link = "@parameter" }, -- JSX prop names -> orange
-					-- Keep builtin HTML tags as green
-					["@tag.builtin.tsx"] = { link = "@tag.builtin" },
-					["@tag.builtin.jsx"] = { link = "@tag.builtin" },
-					["@tag.builtin.javascriptreact"] = { link = "@tag.builtin" },
-					["@tag.builtin.typescriptreact"] = { link = "@tag.builtin" },
+					-- Treesitter: ts/js/tsx/jsx
+					["@punctuation.special.tsx"] = { fg = red },
+					["@constructor.tsx"] = { link = "@type" },
+					["@variable.builtin.tsx"] = { fg = blue },
+					["@tag.tsx"] = { fg = blue },
+					["@tag.builtin.tsx"] = { fg = green },
+					["@tag.attribute.tsx"] = { fg = purple },
 				}
 			end,
 		})

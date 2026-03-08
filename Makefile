@@ -5,6 +5,9 @@
 # Tmux
 # ln -v -F -s ~/dotfiles/tmux ~/.config/tmux
 #
+# tpm
+# * git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+#
 # kitty
 # ln -v -F -s ~/dotfiles/kitty ~/.config/kitty
 #
@@ -19,3 +22,6 @@
 #
 # oh-my-zsh
 # https://github.com/ohmyzsh/ohmyzsh
+#
+#
+# Cmd to dump brewfile

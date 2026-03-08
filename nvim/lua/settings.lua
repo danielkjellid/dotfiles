@@ -14,6 +14,8 @@ vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
 vim.wo.number = true
 vim.wo.numberwidth = 4 -- Width of the number column (adds padding/offset)
 vim.wo.relativenumber = true
+vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
 
 -- Disable relative line numbers in insert mode.
 vim.api.nvim_create_autocmd("InsertEnter", { command = [[set norelativenumber]] })

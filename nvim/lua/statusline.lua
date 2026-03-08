@@ -151,25 +151,6 @@ function M.git_component()
 	return component
 end
 
---- Relative path of the current file.
----@return string
-function M.filepath_component()
-	local buf_name = vim.api.nvim_buf_get_name(0)
-	if buf_name == "" then
-		return ""
-	end
-
-	local cwd = vim.fn.getcwd()
-	local relative_path = vim.fn.fnamemodify(buf_name, ":~:.")
-
-	-- If the file is outside the cwd, try to get a relative path from cwd
-	if not vim.startswith(buf_name, cwd) then
-		relative_path = vim.fn.fnamemodify(buf_name, ":~")
-	end
-
-	return string.format("%%#StatuslineItalic#%s", relative_path)
-end
-
 ---@type table<string, string?>
 local progress_status = {
 	client = nil,
@@ -396,10 +377,7 @@ function M.render()
 	return table.concat({
 		"",
 		offset,
-		concat_components({
-			M.mode_component(),
-			M.filepath_component(),
-		}),
+		M.mode_component(),
 		"%#StatusLine#%=",
 		concat_components({
 			M.git_component(),

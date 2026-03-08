@@ -23,6 +23,7 @@ vim.opt.rtp:prepend(lazypath)
 require 'settings'
 require 'keymaps'
 require 'statusline'
+require 'winbar'
 require 'lsp'
 
 ---@type LazySpec
