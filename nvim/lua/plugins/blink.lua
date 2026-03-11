@@ -59,15 +59,12 @@ return {
 		sources = {
 			-- Disable some sources in comments and strings.
 			default = function()
-				local sources = { "lsp", "buffer", "copilot" }
+				local sources = { "lsp", "buffer", "copilot", "snippets" }
 				local ok, node = pcall(vim.treesitter.get_node)
 
 				if ok and node then
 					if not vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
 						table.insert(sources, "path")
-					end
-					if node:type() ~= "string" then
-						table.insert(sources, "snippets")
 					end
 				end
 
@@ -82,6 +79,11 @@ return {
 					module = "blink-copilot",
 					score_offset = 100,
 					async = true,
+				},
+				snippets = {
+					opts = {
+						friendly_snippets = true,
+					},
 				},
 			},
 		},
