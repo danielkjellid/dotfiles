@@ -1,0 +1,27 @@
+[core]
+	pager = delta
+	autocrlf = input
+
+[user]
+	email = 42611331+danielkjellid@users.noreply.github.com
+	name = Daniel Kjellid
+	signingkey = /Users/danielkjellid/.ssh/git-signing-key.pub
+
+[init]
+	defaultBranch = main
+	templatedir = /Users/danielkjellid/.config/git/templates
+
+[delta]
+	features = side-by-side line-numbers decorations
+	syntax-theme = Dracula
+[commit]
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[tag]
+	gpgSign = true
+[gpg]
+	format = ssh

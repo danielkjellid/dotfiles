@@ -20,6 +20,9 @@
 # starship
 # ln -v -F -s ~/dotfiles/starship ~/.config/starship
 #
+# git
+# ln -v -F -s ~/dotfiles/git ~/.config/git
+#
 # oh-my-zsh
 # https://github.com/ohmyzsh/ohmyzsh
 #
