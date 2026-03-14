@@ -2,6 +2,7 @@
 -- https://github.com/saghen/blink.cmp
 return {
 	"saghen/blink.cmp",
+	version = "1.*",
 	build = "cargo +nightly build --release",
 	event = "InsertEnter",
 	dependencies = {
