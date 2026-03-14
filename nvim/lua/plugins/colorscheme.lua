@@ -137,6 +137,7 @@ return {
 					["@keyword.function"] = { link = "@keyword" },
 					["@keyword.return"] = { link = "@keyword" },
 					["@keyword.operator"] = { link = "@keyword" },
+					["@keyword.export"] = { link = "@keyword" },
 					["@string.documentation"] = { link = "@string" },
 					["@constant.builtin"] = { link = "@constant" },
 					["@function.builtin"] = { link = "@type" },
