@@ -5,6 +5,7 @@ local notifier = require("plugins.snacks.notifier")
 return {
 	"folke/snacks.nvim",
 	lazy = false,
+	build = "make install",
 	opts = {
 		picker = picker.config,
 		explorer = explorer.config,
@@ -68,6 +69,13 @@ return {
 				vim.lsp.buf.code_action()
 			end,
 			desc = "Quick fix (code actions)",
+		},
+		{
+			"gr",
+			function()
+				Snacks.picker.lsp_references()
+			end,
+			desc = "Go to references",
 		},
 	},
 }
