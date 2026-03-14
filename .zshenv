@@ -6,6 +6,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="/Users/danielkjellid/.klipy/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 export ZDOTDIR="$CONFIG_HOME/zsh"
 
