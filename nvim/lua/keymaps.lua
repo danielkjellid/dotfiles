@@ -14,19 +14,12 @@ vim.keymap.set("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { desc = "Previous buffer" })
 
 -- Move selected lines while remaining in visual mode.
-vim.keymap.set("v", "<A-j>", ":m .+1<CR>==", { desc = "Move down" })
-vim.keymap.set("v", "<A-k>", ":m .-2<CR>==", { desc = "Move up" })
-vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", { desc = "Move down" })
-vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", { desc = "Move up" })
 vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", { desc = "Move down" })
 vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", { desc = "Move up" })
 
 -- Commenting.
 vim.keymap.set("v", "<leader>c", "gcgv", { remap = true, desc = "Toggle comment" })
 vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Toggle comment" })
-
--- Open the package manager.
-vim.keymap.set("n", "<leader>L", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- Switch between windows.
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to the left window", remap = true })
@@ -62,7 +55,6 @@ vim.keymap.set("n", "<leader>D", vim.diagnostic.goto_prev, { desc = "Go to previ
 
 -- LSP.
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
 vim.keymap.set("n", "gh", vim.lsp.buf.hover, { desc = "Show hover information" })
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Show signature help" })
