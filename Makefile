@@ -22,6 +22,7 @@
 #
 # git
 # ln -v -F -s ~/dotfiles/git ~/.config/git
+# chmod +x ~/dotfiles/git/templates/hooks/pre-push
 #
 # oh-my-zsh
 # https://github.com/ohmyzsh/ohmyzsh
