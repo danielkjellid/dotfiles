@@ -25,6 +25,10 @@ local M = {
 							["dd"] = { "bufdelete", mode = { "n" } },
 							["|"] = { "vsplit", mode = { "n" } },
 							["_"] = { "split", mode = { "n" } },
+							["<a-a>"] = {
+								"sidekick_send",
+								mode = { "n", "i" },
+							},
 						},
 					},
 					list = {
