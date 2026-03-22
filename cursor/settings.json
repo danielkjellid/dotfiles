@@ -1,0 +1,151 @@
+{
+  // Workbench / UI
+  "workbench.colorTheme": "GitHub Dark",
+  "workbench.statusBar.visible": true,
+  "workbench.settings.editor": "json",
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "window.zoomLevel": 1,
+  "breadcrumbs.enabled": true,
+
+  // Editor
+  "editor.tabSize": 2,
+  "editor.minimap.enabled": false,
+  "editor.suggestSelection": "first",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.renderWhitespace": "all",
+  "editor.guides.bracketPairs": "active",
+
+  // Files / Explorer
+  "files.autoSave": "onFocusChange",
+  "explorer.confirmDragAndDrop": false,
+  "explorer.compactFolders": false,
+
+  // Terminal
+  "terminal.integrated.fontFamily": "Menlo for Powerline",
+
+  // Debug
+  "debug.onTaskErrors": "debugAnyway",
+
+  // Git
+  "git.confirmSync": false,
+  "git.autofetch": true,
+
+  // JavaScript / TypeScript
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.quoteStyle": "single",
+
+  // Language-specific overrides
+  "[python]": {
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4,
+    "editor.codeActionsOnSave": {
+      "python.sortImports": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "never"
+    }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "never"
+    }
+  },
+  "[jsx-tags]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "never"
+    }
+  },
+  "[cpp]": {
+    "editor.wordBasedSuggestions": "off",
+    "editor.suggest.insertMode": "replace",
+    "editor.semanticHighlighting.enabled": true,
+    "editor.formatOnSave": false
+  },
+  "[yaml]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.defaultColorDecorators": "never",
+    "prettier.singleQuote": false
+  },
+  "[html]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+
+  // Extensions
+  "python.languageServer": "None",
+  "biome.suggestInstallingGlobally": false,
+  "cursorpyright.shouldImportPylanceSettings": "always",
+  "makefile.configureOnOpen": true,
+
+  // Vim
+  "vim.leader": "<Space>",
+  "vim.hlsearch": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["<S-h>"], "commands": [":bprevious"] },
+    { "before": ["<S-l>"], "commands": [":bnext"] },
+    { "before": ["<C-h>"], "commands": ["workbench.action.focusLeftGroup"] },
+    { "before": ["<C-j>"], "commands": ["workbench.action.focusBelowGroup"] },
+    { "before": ["<C-k>"], "commands": ["workbench.action.focusAboveGroup"] },
+    { "before": ["<C-l>"], "commands": ["workbench.action.focusRightGroup"] },
+    { "before": ["leader", "e"], "commands": ["workbench.explorer.fileView.focus"] },
+    { "before": ["leader", "E"], "commands": ["workbench.action.toggleSidebarVisibility"] },
+    { "before": ["leader", "d"], "commands": ["editor.action.marker.next"] },
+    { "before": ["leader", "D"], "commands": ["editor.action.marker.prev"] },
+    { "before": ["leader", "."], "commands": ["editor.action.quickFix"] },
+    { "before": ["leader", "c"], "commands": ["editor.action.commentLine"] },
+    { "before": ["leader", "p"], "commands": ["workbench.action.quickOpen"] },
+    { "before": ["leader", "f"], "commands": ["workbench.action.findInFiles"] },
+    { "before": ["leader", "b"], "commands": ["workbench.action.showAllEditors"] },
+    { "before": ["leader", "b", "d"], "commands": ["workbench.action.closeActiveEditor"] },
+    { "before": ["g", "d"], "commands": ["editor.action.revealDefinition"] },
+    { "before": ["g", "h"], "commands": ["editor.action.showHover"] },
+    { "before": ["g", "i"], "commands": ["editor.action.goToImplementation"] },
+    { "before": ["g", "r"], "commands": ["editor.action.goToReferences"] },
+    { "before": ["g", "s"], "commands": ["editor.action.triggerParameterHints"] },
+    { "before": ["g", "l"], "commands": ["editor.action.showHover"] },
+    { "before": ["U"], "commands": ["redo"] },
+    { "before": ["leader", "g", "b"], "commands": ["gitlens.toggleLineBlame"] },
+    { "before": ["leader", "g", "p"], "commands": ["editor.action.dirtydiff.next"] },
+    { "before": ["leader", "g", "r"], "commands": ["git.revertSelectedRanges"] },
+    { "before": ["leader", "g", "s"], "commands": ["git.stageSelectedRanges"] },
+    { "before": ["leader", "g", "R"], "commands": ["git.clean"] }
+  ],
+  "vim.visualModeKeyBindings": [
+    { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+    { "before": [">"], "commands": ["editor.action.indentLines"] },
+    { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
+    { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
+    { "before": ["leader", "c"], "commands": ["editor.action.commentLine"] },
+    { "before": ["leader", "f"], "commands": ["workbench.action.findInFiles"] }
+  ]
+}
