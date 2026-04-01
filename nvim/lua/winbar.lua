@@ -50,12 +50,50 @@ local exclude_filetypes = {
 	"lazyterm",
 	"minifiles",
 	"qf",
-	"snacks_layout_box",
-	"snacks_notif",
-	"snacks_picker_input",
-	"snacks_picker_list",
-	"snacks_picker_preview",
 	"startify",
+}
+
+---@param ft string
+---@return boolean
+local function is_excluded_filetype(ft)
+	if vim.startswith(ft, "snacks_") then
+		return true
+	end
+	for _, excluded in ipairs(exclude_filetypes) do
+		if ft == excluded then
+			return true
+		end
+	end
+	return false
+end
+
+local navic_kind_hl = {
+	File = "Type",
+	Module = "Include",
+	Namespace = "Include",
+	Package = "Include",
+	Class = "Type",
+	Method = "Function",
+	Property = "Variable",
+	Field = "Variable",
+	Constructor = "Type",
+	Enum = "Type",
+	Interface = "Type",
+	Function = "Function",
+	Variable = "Variable",
+	Constant = "Constant",
+	String = "String",
+	Number = "Number",
+	Boolean = "Boolean",
+	Array = "Special",
+	Object = "Type",
+	Key = "Keyword",
+	Null = "Constant",
+	EnumMember = "Constant",
+	Struct = "Type",
+	Event = "Special",
+	Operator = "Operator",
+	TypeParameter = "Type",
 }
 
 ---@param bufnr integer
@@ -83,10 +121,8 @@ function M.render()
 	local bufnr = vim.api.nvim_win_get_buf(winid)
 
 	local ft = vim.bo[bufnr].filetype
-	for _, excluded in ipairs(exclude_filetypes) do
-		if ft == excluded then
-			return ""
-		end
+	if is_excluded_filetype(ft) then
+		return ""
 	end
 
 	local buf_name = vim.api.nvim_buf_get_name(bufnr)
@@ -115,14 +151,39 @@ function M.render()
 		if i < #parts then
 			table.insert(segments, string.format("%%#%s#%s", dir_hl, part))
 		else
+			local name = vim.fn.fnamemodify(buf_name, ":t")
+			local ext = vim.fn.fnamemodify(buf_name, ":e")
+			local icon, icon_hl = require("nvim-web-devicons").get_icon(name, ext, { default = true })
+			local icon_winbar_hl = get_or_create_hl(icon_hl)
+
 			local git_hl = get_file_git_hl(bufnr)
 			local hl = git_hl and get_or_create_hl(git_hl) or "StatusLine"
 			local modified = vim.bo[bufnr].modified and "*" or ""
-			table.insert(segments, string.format("%%#%s#%s%s", hl, part, modified))
+			table.insert(segments, string.format("%%#%s#%s %%#%s#%s", icon_winbar_hl, icon, hl, part, modified))
 		end
 	end
 
-	return string.format("%%#StatusLine# %s%%#StatusLine#%%=", table.concat(segments, separator))
+	local path_str = table.concat(segments, separator)
+
+	local navic = require("nvim-navic")
+	local navic_str = ""
+	if navic.is_available(bufnr) then
+		local data = navic.get_data(bufnr) or {}
+		if #data > 0 then
+			local navic_parts = {}
+			for _, item in ipairs(data) do
+				local icon_hl = get_or_create_hl(navic_kind_hl[item.type] or "Function")
+				table.insert(navic_parts, string.format("%%#%s#%s%%#StatusLine#%s", icon_hl, item.icon, item.name))
+			end
+			navic_str = string.format(
+				" %s %s",
+				string.format("%%#%s#%s", separator_hl, icons.angles.right),
+				table.concat(navic_parts, string.format(" %%#%s#%s ", separator_hl, icons.angles.right))
+			)
+		end
+	end
+
+	return string.format("%%#StatusLine# %%<%s%s%%#StatusLine#%%=", path_str, navic_str)
 end
 
 local winbar_expr = "%!v:lua.require'winbar'.render()"
@@ -132,15 +193,8 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter", "FileType" }, {
 	callback = function(args)
 		local bufnr = args.buf
 		local ft = vim.bo[bufnr].filetype
-		local is_excluded = false
-		for _, excluded in ipairs(exclude_filetypes) do
-			if ft == excluded then
-				is_excluded = true
-				break
-			end
-		end
 
-		local value = is_excluded and "" or winbar_expr
+		local value = is_excluded_filetype(ft) and "" or winbar_expr
 		for _, win in ipairs(vim.api.nvim_list_wins()) do
 			if vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_buf(win) == bufnr then
 				vim.wo[win].winbar = value
