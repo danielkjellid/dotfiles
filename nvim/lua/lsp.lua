@@ -155,6 +155,12 @@ vim.lsp.config.basedpyright = {
 				-- Use ruff for linting, so disable type checking diagnostics
 				-- to avoid duplicates.
 				typeCheckingMode = "off",
+				-- Re-enable the diagnostics that power "add import" code actions,
+				-- since typeCheckingMode = "off" suppresses them.
+				diagnosticSeverityOverrides = {
+					reportUndefinedVariable = "error",
+					reportMissingImports = "error",
+				},
 				-- Enable go-to-definition for external packages
 				autoSearchPaths = true,
 				useLibraryCodeForTypes = true,
