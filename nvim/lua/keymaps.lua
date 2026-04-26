@@ -58,7 +58,14 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "gh", vim.lsp.buf.hover, { desc = "Show hover information" })
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Show signature help" })
-vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Show diagnostic information" })
+vim.keymap.set("n", "gl", function()
+	local ft = vim.bo.filetype
+	if ft == "typescript" or ft == "typescriptreact" or ft == "javascript" or ft == "javascriptreact" then
+		require("rulebook").prettifyError()
+	else
+		vim.diagnostic.open_float()
+	end
+end, { desc = "Show diagnostic information" })
 
 vim.api.nvim_create_user_command("Messages", function()
 	Snacks.notifier.show_history()

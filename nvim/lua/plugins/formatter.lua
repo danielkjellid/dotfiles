@@ -32,12 +32,10 @@ return {
 		autocmd("BufWritePost", {
 			group = "__formatter__",
 			callback = function()
-				-- Check if formatting should be skipped (set by <C-S-s> keymap)
 				if vim.g.skip_formatting then
-					vim.g.skip_formatting = false -- Reset flag for next time
+					vim.g.skip_formatting = false
 					return
 				end
-				-- Format normally
 				vim.cmd("FormatWrite")
 			end,
 		})

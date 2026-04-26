@@ -197,7 +197,9 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter", "FileType" }, {
 		local value = is_excluded_filetype(ft) and "" or winbar_expr
 		for _, win in ipairs(vim.api.nvim_list_wins()) do
 			if vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_buf(win) == bufnr then
-				vim.wo[win].winbar = value
+				if vim.api.nvim_win_get_config(win).relative == "" then
+					vim.wo[win].winbar = value
+				end
 			end
 		end
 	end,
