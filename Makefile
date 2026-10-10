@@ -1,6 +1,6 @@
 DOTFILES := $(HOME)/dotfiles
 
-.PHONY: cargo claude nvim tmux kitty zsh starship git cursor vscode lazygit herdr obsidian obsidian-plugins cursor-extensions vscode-extensions dump-extensions
+.PHONY: cargo claude dump-claude nvim tmux kitty zsh starship git cursor vscode lazygit herdr obsidian obsidian-plugins cursor-extensions vscode-extensions dump-extensions
 
 OBSIDIAN_VAULT := $(HOME)/Documents/notes
 
@@ -12,6 +12,12 @@ cargo:
 
 claude:
 	ln -v -F -s $(DOTFILES)/claude/skills $(HOME)/.claude/skills
+	ln -v -F -s $(DOTFILES)/claude/rules $(HOME)/.claude/rules
+	ln -v -F -s $(DOTFILES)/claude/CLAUDE.md $(HOME)/.claude/CLAUDE.md
+	$(DOTFILES)/claude/install.sh
+
+dump-claude:
+	jq 'del(.autoMode)' $(HOME)/.claude/settings.json > $(DOTFILES)/claude/settings.json
 
 nvim:
 	ln -v -F -s $(DOTFILES)/nvim $(HOME)/.config/nvim
