@@ -19,6 +19,9 @@ return {
 				markdown = {
 					require("formatter.filetypes.markdown").prettier,
 				},
+        xml = {
+          require("formatter.filetypes.xml").xmlformat,
+        },
 				["*"] = {
 					require("formatter.filetypes.any").remove_trailing_whitespace,
 				},

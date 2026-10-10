@@ -6,6 +6,7 @@ return {
 			mux = {
 				enabled = true,
 				backend = "tmux",
+				create = "window", -- new window in the current tmux session (instead of a separate session)
 			},
 		},
 	},
@@ -36,15 +37,6 @@ return {
 				require("sidekick.cli").toggle()
 			end,
 			desc = "Sidekick Toggle CLI",
-		},
-		{
-			"<leader>as",
-			function()
-				require("sidekick.cli").select()
-			end,
-			-- Or to select only installed tools:
-			-- require("sidekick.cli").select({ filter = { installed = true } })
-			desc = "Select CLI",
 		},
 		{
 			"<leader>ad",

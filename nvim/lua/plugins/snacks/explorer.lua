@@ -1,6 +1,9 @@
 local M = {
-  config = {},
+  config = {
+    hidden = true,
+  },
   picker_source_config = {
+    hidden = true,
     layout = {
       layout = {
         width = vim.g.sidebar_width or 30,
@@ -16,14 +19,14 @@ local function configure_explorer(snacks)
     if not vim.api.nvim_win_is_valid(win) then
       return false
     end
-    
+
     local buf = vim.api.nvim_win_get_buf(win)
     if not vim.api.nvim_buf_is_valid(buf) then
       return false
     end
-    
+
     local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
-    
+
     -- Snacks explorer uses filetype 'snacks_picker_list' for the list
     -- 'snacks_layout_box' is also part of the explorer UI
     return filetype == "snacks_picker_list" or filetype == "snacks_layout_box"
@@ -59,7 +62,7 @@ local function configure_explorer(snacks)
         local bufname = vim.api.nvim_buf_get_name(buf)
         local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
         local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
-        
+
         -- Count buffers that are regular files (not explorer, not special buffers)
         if buftype == "" and bufname ~= "" and vim.fn.filereadable(bufname) == 1 then
           -- Not an explorer buffer
@@ -77,7 +80,7 @@ local function configure_explorer(snacks)
   -- if there are other windows we can switch to (not just buffers in the list)
   local function has_other_regular_buffers(current_buf)
     local current_win = vim.api.nvim_get_current_win()
-    
+
     -- Check all windows to see if any other window shows a regular buffer
     for _, win in ipairs(vim.api.nvim_list_wins()) do
       if vim.api.nvim_win_is_valid(win) and win ~= current_win then
@@ -86,7 +89,7 @@ local function configure_explorer(snacks)
           local bufname = vim.api.nvim_buf_get_name(buf)
           local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
           local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
-          
+
           -- Check if this window shows a regular file buffer (not explorer, not special buffers)
           if buftype == "" and bufname ~= "" and vim.fn.filereadable(bufname) == 1 then
             -- Not an explorer buffer
@@ -97,7 +100,7 @@ local function configure_explorer(snacks)
         end
       end
     end
-    
+
     -- Also check if there are other regular buffers in the buffer list that we could switch to
     -- (in case they're not displayed in windows yet)
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -105,7 +108,7 @@ local function configure_explorer(snacks)
         local bufname = vim.api.nvim_buf_get_name(buf)
         local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
         local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
-        
+
         -- Check if this is a regular file buffer (not explorer, not special buffers)
         if buftype == "" and bufname ~= "" and vim.fn.filereadable(bufname) == 1 then
           -- Not an explorer buffer
@@ -118,7 +121,7 @@ local function configure_explorer(snacks)
         end
       end
     end
-    
+
     return false
   end
 
@@ -160,14 +163,14 @@ local function configure_explorer(snacks)
   local function switch_focus()
     local current_win = vim.api.nvim_get_current_win()
     local is_current_explorer = is_explorer_window(current_win)
-    
+
     if is_current_explorer then
       -- Currently in explorer - switch to a buffer window
       for _, win in ipairs(vim.api.nvim_list_wins()) do
         if vim.api.nvim_win_is_valid(win) and win ~= current_win then
           local buf = vim.api.nvim_win_get_buf(win)
           local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
-          
+
           -- Find a regular buffer window (not explorer, not floating)
           if filetype ~= "snacks_picker_list" and filetype ~= "snacks_layout_box" then
             local config = vim.api.nvim_win_get_config(win)
@@ -219,16 +222,16 @@ local function configure_explorer(snacks)
   vim.api.nvim_create_user_command('Q', function(opts)
     local current_buf = vim.api.nvim_get_current_buf()
     local current_filetype = vim.api.nvim_buf_get_option(current_buf, "filetype")
-    
+
     -- If we're in the explorer, just quit normally (close the explorer window)
     if current_filetype == "snacks_picker_list" or current_filetype == "snacks_layout_box" then
       vim.cmd("q" .. (opts.bang and "!" or ""))
       return
     end
-    
+
     -- Count total regular buffers
     local total_regular_buffers = count_regular_buffers()
-    
+
     -- If there's only 1 regular buffer, quit Neovim
     if total_regular_buffers <= 1 then
       -- This is the last regular buffer - quit Neovim instead of deleting
@@ -278,7 +281,7 @@ local function configure_explorer(snacks)
       local snacks_windows = {}
       local floating_windows = {}
       local windows = vim.api.nvim_list_wins()
-      
+
       for _, w in ipairs(windows) do
         local filetype = vim.api.nvim_get_option_value('filetype', { buf = vim.api.nvim_win_get_buf(w) })
         if filetype:match('snacks_') ~= nil then
@@ -287,7 +290,7 @@ local function configure_explorer(snacks)
           table.insert(floating_windows, w)
         end
       end
-      
+
       -- If we're actually quitting (only one regular window left), close explorer windows
       if 1 == #windows - #floating_windows - #snacks_windows then
         for _, w in ipairs(snacks_windows) do
