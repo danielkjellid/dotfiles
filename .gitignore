@@ -1,7 +1,20 @@
 **/.DS_Store
 
 zsh/.oh-my-zsh/
+zsh/ohmyzsh/
 zsh/.zcompdump*
 zsh/.zsh_history
 
 tmux/plugins/*
+
+herdr/*.log
+herdr/*.sock
+herdr/session.json
+herdr/release-notes.json
+herdr/plugins/
+
+# Claude skills managed by claude.ai sync or third-party installers
+claude/skills/.trash/
+claude/skills/synced/
+claude/skills/plannotator-*/
+claude/skills/context7-mcp/
