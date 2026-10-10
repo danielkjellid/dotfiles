@@ -22,5 +22,5 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 # Set up neovim as the default editor.
 export EDITOR="$(which nvim)"
 export VISUAL="$EDITOR"
-. "$HOME/.cargo/env"
-. "$HOME/export-esp.sh"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+[ -f "$HOME/export-esp.sh" ] && . "$HOME/export-esp.sh"
