@@ -147,5 +147,6 @@
     { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
     { "before": ["leader", "c"], "commands": ["editor.action.commentLine"] },
     { "before": ["leader", "f"], "commands": ["workbench.action.findInFiles"] }
-  ]
+  ],
+  "window.autoDetectColorScheme": false
 }
