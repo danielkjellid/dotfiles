@@ -5,7 +5,7 @@
 [user]
 	email = 42611331+danielkjellid@users.noreply.github.com
 	name = Daniel Kjellid
-	signingkey = /Users/danielkjellid/.ssh/git-signing-key.pub
+	signingkey = /Users/danielkjellid/.ssh/id_ed25519.pub
 
 [init]
 	defaultBranch = main
