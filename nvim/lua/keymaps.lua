@@ -29,6 +29,7 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to the right window", rema
 
 -- Quickly go to the end of the line while in insert mode.
 vim.keymap.set({ "i", "c" }, "<C-l>", "<C-o>A", { desc = "Go to the end of the line" })
+vim.keymap.set({ "i", "c" }, "<C-h>", "<C-o>S", { desc = "Go to the beginning of the line" })
 
 -- Escape and save changes.
 vim.keymap.set({ "s", "i", "n", "v" }, "<D-s>", function()
@@ -54,7 +55,28 @@ vim.keymap.set("n", "<leader>d", vim.diagnostic.goto_next, { desc = "Go to next 
 vim.keymap.set("n", "<leader>D", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
 
 -- LSP.
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "gd", function()
+	vim.lsp.buf.definition({
+		on_list = function(opts)
+			local items = opts.items or {}
+			local unique = {}
+			local seen = {}
+			for _, item in ipairs(items) do
+				local key = string.format("%s:%d:%d", item.filename or "", item.lnum or 0, item.col or 0)
+				if not seen[key] then
+					seen[key] = true
+					unique[#unique + 1] = item
+				end
+			end
+			if #unique <= 1 then
+				vim.fn.setqflist({}, " ", { title = opts.title, items = unique, context = opts.context })
+				vim.cmd("cfirst")
+			else
+				Snacks.picker.lsp_definitions()
+			end
+		end,
+	})
+end, { desc = "Go to definition" })
 vim.keymap.set("n", "gh", vim.lsp.buf.hover, { desc = "Show hover information" })
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Show signature help" })
