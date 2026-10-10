@@ -1,0 +1,200 @@
+// Zed keymap, migrated from ~/.config/nvim.
+//
+// Leader is space, same as nvim. Anything nvim already gets for free from Zed's
+// vim mode (surround, textobjects, gd, gh, gcc, etc.) is not repeated here.
+//
+// Deliberate differences from nvim (Zed fires a binding as soon as it matches,
+// so a binding cannot also be the prefix of a longer one):
+//   <leader>fr -> <leader>r   (search & replace; <leader>f is grep)
+//   <leader>bd -> <leader>x   (close buffer; <leader>b is the tab switcher)
+[
+  // ── Window / pane navigation, saving ────────────────────────────────────
+  // nvim: <C-h/j/k/l> window switch + vim-tmux-navigator, <D-s> / <D-S-s> save
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-\\": "workspace::ActivateLastPane",
+      // cmd-s already saves (and formats, per settings). This replaces the
+      // default cmd-shift-s "Save As".
+      "cmd-shift-s": "workspace::SaveWithoutFormat",
+      // nvim: <C-.> sidekick toggle
+      "ctrl-.": "agent::ToggleFocus"
+    }
+  },
+
+  // ── Normal mode ────────────────────────────────────────────────────────
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      // Buffer/tab navigation (nvim: <S-l> / <S-h>)
+      "shift-l": "pane::ActivateNextItem",
+      "shift-h": "pane::ActivatePreviousItem",
+
+      // U as the opposite of u (nvim: U -> <C-r>)
+      "shift-u": "editor::Redo",
+
+      // LSP (g h / g d are already Zed defaults)
+      "g i": "editor::GoToImplementation",
+      "g s": "editor::ShowSignatureHelp",
+      "g r": "editor::FindAllReferences",
+      "g l": "editor::Hover",
+
+      // Diagnostics (nvim: <leader>d / <leader>D)
+      "space d": "editor::GoToDiagnostic",
+      "space shift-d": "editor::GoToPreviousDiagnostic",
+
+      // Hunk navigation (nvim: <C-g> / <C-S-g> via gitsigns)
+      "ctrl-g": "editor::GoToPreviousHunk",
+      "ctrl-shift-g": "editor::GoToHunk",
+
+      // Comments (nvim: <leader>c)
+      "space c": "editor::ToggleComments",
+
+      // Code actions (nvim: <leader>.)
+      "space .": "editor::ToggleCodeActions",
+
+      // Pickers (nvim: snacks)
+      "space p": "file_finder::Toggle",
+      "space b": "tab_switcher::Toggle",
+      "space f": "pane::DeploySearch",
+      "space r": ["pane::DeploySearch", { "replace_enabled": true }],
+      "space x": "pane::CloseActiveItem",
+
+      // Explorer (nvim: <leader>e focus, <leader>E toggle)
+      "space e": "project_panel::ToggleFocus",
+      "space shift-e": "workspace::ToggleLeftDock",
+
+      // Git (nvim: gitsigns / diffview / gitlinker)
+      "space g b": "editor::ToggleGitBlameInline",
+      "space g p": "editor::ToggleSelectedDiffHunks",
+      "space g s": "git::ToggleStaged",
+      "space g shift-s": "git::StageFile",
+      "space g r": "git::Restore",
+      "space g shift-r": "git::RestoreFile",
+      "space g d": "git::Diff",
+      "space g f": "git::FileHistory",
+      "space g l": "git_panel::ToggleFocus",
+      "space g c": "editor::CopyPermalinkToLine",
+      "space g o": "editor::OpenPermalinkToLine",
+
+      // Agent (nvim: sidekick <leader>a*)
+      "space a a": "agent::ToggleFocus",
+      "space a n": "agent::NewThread",
+      "space a t": "agent::AddSelectionToThread",
+      "space a i": "assistant::InlineAssist",
+      "space a p": "agent::OpenRulesLibrary"
+    }
+  },
+
+  // ── Visual mode ────────────────────────────────────────────────────────
+  {
+    "context": "Editor && vim_mode == visual && !menu",
+    "bindings": {
+      // Move the selection up/down (nvim: J / K in visual)
+      "shift-j": "editor::MoveLineDown",
+      "shift-k": "editor::MoveLineUp",
+
+      "space c": "vim::ToggleComments",
+      "space f": "pane::DeploySearch",
+      "space r": ["pane::DeploySearch", { "replace_enabled": true }],
+
+      "space g s": "git::ToggleStaged",
+      "space g r": "git::Restore",
+      "space g c": "editor::CopyPermalinkToLine",
+      "space g o": "editor::OpenPermalinkToLine",
+
+      "space a v": "agent::AddSelectionToThread",
+      "space a t": "agent::AddSelectionToThread",
+      "space a i": "assistant::InlineAssist"
+    }
+  },
+
+  // ── Insert mode ────────────────────────────────────────────────────────
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // nvim: <C-l> -> <C-o>A, <C-h> -> <C-o>S
+      "ctrl-l": "editor::MoveToEndOfLine",
+      "ctrl-h": ["workspace::SendKeystrokes", "escape shift-s"],
+      // nvim: blink <C-space> to show completions
+      "ctrl-space": "editor::ShowCompletions"
+    }
+  },
+
+  // ── Git panel, lazygit-flavoured ───────────────────────────────────────
+  // Only applies while the changes list is focused, so it never eats typing in
+  // the commit editor. Zed's vim mode already provides j/k/gg/G, x (toggle
+  // staged), shift-x (stage all), shift-u (unstage all), i (commit editor),
+  // space (toggle staged) and enter (open diff).
+  {
+    "context": "GitPanel && ChangesList && !GitBranchSelector && !GitRepositorySelector",
+    "bindings": {
+      // Staging & committing
+      "a": "git::StageAll",
+      "c": "git_panel::FocusEditor", // write the message, then cmd-enter
+      "shift-c": "git::Commit",
+      "shift-a": "git::Amend",
+
+      // Discarding (both prompt first)
+      "d": ["git::RestoreFile", { "skip_prompt": false }],
+      "shift-d": "git::RestoreTrackedFiles",
+
+      // Opening
+      "o": "git::ViewFile",
+      "e": "git::ViewFile",
+
+      // Stash
+      "s": "git::StashAll",
+      "shift-s": "git::StashPop",
+
+      // Remote
+      "f": "git::Fetch",
+      "p": "git::Pull",
+      "shift-p": "git::Push",
+
+      // Branches & panel tabs
+      "b": "git::Branch",
+      "y b": "git::CopyBranchName",
+      "[": "git_panel::ActivateChangesTab",
+      "]": "git_panel::ActivateHistoryTab",
+
+      "shift-i": "git::AddToGitignore",
+
+      // Close the panel outright. Zed's default is git_panel::ToggleFocus,
+      // which only hands focus back to the editor and leaves the dock open.
+      "escape": "workspace::CloseActiveDock",
+
+      // Zed's vim keymap defines "space f", "space /", "space shift-s" and
+      // "space w <dir>" in the "!Editor && !Terminal" context, which matches
+      // this panel. That makes space a live prefix, so the plain "space"
+      // (toggle staged) binding can't fire until Zed knows no second key is
+      // coming. Same story for [ and ] via "[ b" / "] b". Unbind them here.
+      "space f": null,
+      "space /": null,
+      "space shift-s": null,
+      "space w h": null,
+      "space w j": null,
+      "space w k": null,
+      "space w l": null,
+      "space w q": null,
+      "[ b": null,
+      "] b": null,
+      "[ shift-b": null,
+      "] shift-b": null
+    }
+  },
+
+  // ── File explorer ──────────────────────────────────────────────────────
+  // nvim: | / _ to open a picker result in a vertical/horizontal split
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "|": "project_panel::OpenSplitVertical",
+      "_": "project_panel::OpenSplitHorizontal"
+    }
+  }
+]

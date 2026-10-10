@@ -1,6 +1,6 @@
 DOTFILES := $(HOME)/dotfiles
 
-.PHONY: cargo claude dump-claude nvim tmux kitty zsh starship git cursor vscode lazygit herdr obsidian obsidian-plugins cursor-extensions vscode-extensions dump-extensions
+.PHONY: cargo claude dump-claude nvim tmux kitty zsh starship git gh ssh cursor vscode zed lazygit worktrunk herdr obsidian obsidian-plugins cursor-extensions vscode-extensions dump-extensions
 
 OBSIDIAN_VAULT := $(HOME)/Documents/notes
 
@@ -45,6 +45,14 @@ git:
 	ln -v -F -s $(DOTFILES)/git $(HOME)/.config/git
 	chmod +x $(DOTFILES)/git/templates/hooks/pre-push
 
+gh:
+	@mkdir -p $(HOME)/.config/gh
+	ln -v -F -s $(DOTFILES)/gh/config.yml $(HOME)/.config/gh/config.yml
+
+ssh:
+	@mkdir -p -m 700 $(HOME)/.ssh
+	ln -v -F -s $(DOTFILES)/ssh/config $(HOME)/.ssh/config
+
 cursor:
 	ln -v -F -s $(DOTFILES)/cursor/settings.json "$(HOME)/Library/Application Support/Cursor/User/settings.json"
 	ln -v -F -s $(DOTFILES)/cursor/keybindings.json "$(HOME)/Library/Application Support/Cursor/User/keybindings.json"
@@ -53,8 +61,14 @@ vscode:
 	ln -v -F -s $(DOTFILES)/vscode/settings.json "$(HOME)/Library/Application Support/Code/User/settings.json"
 	ln -v -F -s $(DOTFILES)/vscode/keybindings.json "$(HOME)/Library/Application Support/Code/User/keybindings.json"
 
+zed:
+	ln -v -F -s $(DOTFILES)/zed $(HOME)/.config/zed
+
 lazygit:
 	ln -v -F -s $(DOTFILES)/lazygit $(HOME)/.config/lazygit
+
+worktrunk:
+	ln -v -F -s $(DOTFILES)/worktrunk $(HOME)/.config/worktrunk
 
 herdr:
 	ln -v -F -s $(DOTFILES)/herdr $(HOME)/.config/herdr

@@ -1,0 +1,8 @@
+[projects."github.com/installerhq/installer"]
+approved-commands = [
+    "{{ worktree_path }}/scripts/worktree.sh setup",
+    "pnpm install --prefer-offline",
+    "pnpm db:setup",
+    "{{ primary_worktree_path }}/scripts/worktree.sh teardown {{ worktree_path }}",
+    "{{ primary_worktree_path }}/scripts/worktree.sh setup {{ worktree_path }}",
+]
