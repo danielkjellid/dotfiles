@@ -1,6 +1,6 @@
 DOTFILES := $(HOME)/dotfiles
 
-.PHONY: claude nvim tmux kitty zsh starship git cursor vscode lazygit cursor-extensions vscode-extensions dump-extensions
+.PHONY: claude nvim tmux kitty zsh starship git cursor vscode lazygit herdr cursor-extensions vscode-extensions dump-extensions
 
 claude:
 	ln -v -F -s $(DOTFILES)/claude/skills $(HOME)/.claude/skills
@@ -41,6 +41,9 @@ vscode:
 
 lazygit:
 	ln -v -F -s $(DOTFILES)/lazygit $(HOME)/.config/lazygit
+
+herdr:
+	ln -v -F -s $(DOTFILES)/herdr $(HOME)/.config/herdr
 
 cursor-extensions:
 	cat $(DOTFILES)/cursor/extensions.txt | xargs -L 1 cursor --install-extension
