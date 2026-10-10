@@ -17,7 +17,7 @@ claude:
 	$(DOTFILES)/claude/install.sh
 
 dump-claude:
-	jq 'del(.autoMode)' $(HOME)/.claude/settings.json > $(DOTFILES)/claude/settings.json
+	jq 'del(.autoMode, .hooks)' $(HOME)/.claude/settings.json > $(DOTFILES)/claude/settings.json
 
 nvim:
 	ln -v -F -s $(DOTFILES)/nvim $(HOME)/.config/nvim
@@ -58,6 +58,7 @@ lazygit:
 
 herdr:
 	ln -v -F -s $(DOTFILES)/herdr $(HOME)/.config/herdr
+	herdr integration install claude
 
 obsidian:
 	ln -v -F -s $(DOTFILES)/obsidian/.obsidian.vimrc $(OBSIDIAN_VAULT)/.obsidian.vimrc

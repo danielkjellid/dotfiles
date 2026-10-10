@@ -1,6 +1,7 @@
 #!/bin/sh
 # Merges the versioned settings into ~/.claude/settings.json and installs their plugins.
-# settings.json stays a real file: autoMode lives only there, since this repo is public.
+# settings.json stays a real file: autoMode lives only there, since this repo is public,
+# and hooks too, since herdr writes its hook with this machine's path.
 set -eu
 
 DIR=$(cd "$(dirname "$0")" && pwd)
