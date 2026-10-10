@@ -1,6 +1,9 @@
 DOTFILES := $(HOME)/dotfiles
 
-.PHONY: nvim tmux kitty zsh starship git cursor vscode cursor-extensions vscode-extensions dump-extensions
+.PHONY: claude nvim tmux kitty zsh starship git cursor vscode cursor-extensions vscode-extensions dump-extensions
+
+claude:
+	ln -v -F -s $(DOTFILES)/claude/skills $(HOME)/.claude/skills
 
 nvim:
 	ln -v -F -s $(DOTFILES)/nvim $(HOME)/.config/nvim
