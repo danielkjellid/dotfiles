@@ -1,0 +1,8 @@
+os:
+  editPreset: 'nvim-remote'
+  open: 'nvr --remote-silent {{filename}}'
+  openLink: 'open {{link}}'
+git:
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never

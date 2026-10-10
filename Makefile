@@ -1,6 +1,6 @@
 DOTFILES := $(HOME)/dotfiles
 
-.PHONY: claude nvim tmux kitty zsh starship git cursor vscode cursor-extensions vscode-extensions dump-extensions
+.PHONY: claude nvim tmux kitty zsh starship git cursor vscode lazygit cursor-extensions vscode-extensions dump-extensions
 
 claude:
 	ln -v -F -s $(DOTFILES)/claude/skills $(HOME)/.claude/skills
@@ -38,6 +38,9 @@ cursor:
 vscode:
 	ln -v -F -s $(DOTFILES)/vscode/settings.json "$(HOME)/Library/Application Support/Code/User/settings.json"
 	ln -v -F -s $(DOTFILES)/vscode/keybindings.json "$(HOME)/Library/Application Support/Code/User/keybindings.json"
+
+lazygit:
+	ln -v -F -s $(DOTFILES)/lazygit $(HOME)/.config/lazygit
 
 cursor-extensions:
 	cat $(DOTFILES)/cursor/extensions.txt | xargs -L 1 cursor --install-extension
