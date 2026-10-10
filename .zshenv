@@ -1,14 +1,16 @@
-export CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # Paths
 export PATH="$HOME/.pyenv/shims:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/Users/danielkjellid/.klipy/bin:$PATH"
-export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
-export ZDOTDIR="$CONFIG_HOME/zsh"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
@@ -20,3 +22,5 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 # Set up neovim as the default editor.
 export EDITOR="$(which nvim)"
 export VISUAL="$EDITOR"
+. "$HOME/.cargo/env"
+. "$HOME/export-esp.sh"
