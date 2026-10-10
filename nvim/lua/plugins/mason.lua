@@ -8,7 +8,8 @@ return {
       "rust_analyzer",
       -- "pyrefly",
       "basedpyright",
-      "ts_ls",
+      -- "ts_ls",
+      "tsgo",
       "lua_ls",
       "cssls",
       "html",
@@ -17,8 +18,8 @@ return {
     },
   },
   dependencies = {
-    { 
-      "mason-org/mason.nvim", 
+    {
+      "mason-org/mason.nvim",
       opts = {} -- This needs to be empty so that mason is properly initialized.
     },
     "neovim/nvim-lspconfig",

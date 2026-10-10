@@ -177,9 +177,9 @@ vim.lsp.config.ruff = {
 	},
 }
 
-vim.lsp.config.ts_ls = {
-	filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-}
+-- vim.lsp.config.ts_ls = {
+-- 	filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+-- }
 
 vim.lsp.config.lua_ls = {
 	settings = {
@@ -194,5 +194,9 @@ vim.lsp.config.lua_ls = {
 	},
 }
 
+vim.lsp.config.tsgo = {
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+}
+
 -- Enable the LSP servers
-vim.lsp.enable({ "basedpyright", "ruff", "ts_ls", "lua_ls" })
+vim.lsp.enable({ "basedpyright", "ruff", "tsgo", "lua_ls" })
