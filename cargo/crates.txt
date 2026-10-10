@@ -1,0 +1,5 @@
+cargo-espflash@4.6.0
+esp-config@0.8.0
+esp-generate@1.4.0
+espflash@4.6.0
+espup@0.17.1

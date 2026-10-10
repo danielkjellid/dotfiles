@@ -1,8 +1,14 @@
 DOTFILES := $(HOME)/dotfiles
 
-.PHONY: claude nvim tmux kitty zsh starship git cursor vscode lazygit herdr obsidian obsidian-plugins cursor-extensions vscode-extensions dump-extensions
+.PHONY: cargo claude nvim tmux kitty zsh starship git cursor vscode lazygit herdr obsidian obsidian-plugins cursor-extensions vscode-extensions dump-extensions
 
 OBSIDIAN_VAULT := $(HOME)/Documents/notes
+
+# rustup-init comes from brew's rustup; .zshenv already sources ~/.cargo/env.
+cargo:
+	rustup-init -y --no-modify-path
+	xargs -L 1 $(HOME)/.cargo/bin/cargo install --locked < $(DOTFILES)/cargo/crates.txt
+	$(HOME)/.cargo/bin/espup install
 
 claude:
 	ln -v -F -s $(DOTFILES)/claude/skills $(HOME)/.claude/skills
