@@ -1,6 +1,8 @@
 DOTFILES := $(HOME)/dotfiles
 
-.PHONY: claude nvim tmux kitty zsh starship git cursor vscode lazygit herdr cursor-extensions vscode-extensions dump-extensions
+.PHONY: claude nvim tmux kitty zsh starship git cursor vscode lazygit herdr obsidian obsidian-plugins cursor-extensions vscode-extensions dump-extensions
+
+OBSIDIAN_VAULT := $(HOME)/Documents/notes
 
 claude:
 	ln -v -F -s $(DOTFILES)/claude/skills $(HOME)/.claude/skills
@@ -44,6 +46,16 @@ lazygit:
 
 herdr:
 	ln -v -F -s $(DOTFILES)/herdr $(HOME)/.config/herdr
+
+obsidian:
+	ln -v -F -s $(DOTFILES)/obsidian/.obsidian.vimrc $(OBSIDIAN_VAULT)/.obsidian.vimrc
+	@mkdir -p $(OBSIDIAN_VAULT)/.obsidian
+	ln -v -F -s $(DOTFILES)/obsidian/.obsidian/hotkeys.json $(OBSIDIAN_VAULT)/.obsidian/hotkeys.json
+	ln -v -F -s $(DOTFILES)/obsidian/.obsidian/appearance.json $(OBSIDIAN_VAULT)/.obsidian/appearance.json
+	ln -v -F -s $(DOTFILES)/obsidian/.obsidian/community-plugins.json $(OBSIDIAN_VAULT)/.obsidian/community-plugins.json
+
+obsidian-plugins:
+	$(DOTFILES)/obsidian/install-plugins.sh $(OBSIDIAN_VAULT)
 
 cursor-extensions:
 	cat $(DOTFILES)/cursor/extensions.txt | xargs -L 1 cursor --install-extension
